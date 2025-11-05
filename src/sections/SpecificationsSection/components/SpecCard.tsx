@@ -8,8 +8,8 @@ export type SpecCardProps = {
 
 export const SpecCard = (props: SpecCardProps) => {
   return (
-    <div className="box-border caret-transparent block max-w-full w-full mx-0 px-5 md:box-content md:max-w-[270px] md:mx-5 md:px-0">
-      <div className="relative bg-zinc-900 box-border caret-transparent h-[170px] w-full border-stone-300 rounded-[30px] border-2 border-solid md:h-[215px]">
+    <div className="box-border caret-transparent block max-w-full w-full mx-0 px-5 md:box-content md:max-w-[270px] md:mx-5 md:px-0 transition-all duration-300 hover:-translate-y-2">
+      <div className="relative bg-zinc-900 box-border caret-transparent h-[170px] w-full border-stone-300 rounded-[30px] border-2 border-solid md:h-[215px] transition-all duration-300 hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)]">
         <div className="absolute box-border caret-transparent table w-[50px] z-[3] left-1/2 -translate-x-1/2 top-[25px] md:w-[78px] md:top-[25px]">
           <div className="caret-transparent table-cell align-middle w-full bg-center">
             <img

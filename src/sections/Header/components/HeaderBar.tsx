@@ -7,7 +7,9 @@ import { MobileMenu } from "@/sections/Header/components/MobileMenu";
 export const HeaderBar = () => {
   return (
     <div className="absolute caret-transparent h-[70px] w-full z-[990] overflow-visible md:h-[100px]">
-      <div className="absolute bg-[#9f001f] caret-transparent h-[70px] w-full z-[1] left-0 top-0 md:h-[100px]"></div>
+      <div className="absolute bg-[#9f001f] caret-transparent h-[70px] w-full z-[1] left-0 top-0 md:h-[100px]">
+        <div className="max-w-[1920px] mx-auto h-full relative"></div>
+      </div>
       <HeaderPhone />
       <DesktopNav />
       <HeaderLogo />

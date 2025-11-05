@@ -4,7 +4,7 @@ import { Footer } from "@/sections/Footer";
 
 const BlogHero = () => {
   return (
-    <div className="bg-[#9f001f] caret-transparent w-full">
+    <div className="bg-[#9f001f] caret-transparent w-full pt-[70px] md:pt-[100px]">
       <div className="relative caret-transparent max-w-[1920px] mx-auto">
         <div className="relative caret-transparent flex flex-col justify-center min-h-0 overflow-hidden md:min-h-[800px]">
           <div className="static box-border caret-transparent w-full z-[1] py-[80px] md:relative md:py-[120px]">
@@ -38,7 +38,7 @@ const BlogCard = ({ title, date, excerpt, category, tags, readTime, views }: {
   views: number;
 }) => {
   return (
-    <div className="box-border caret-transparent block max-w-full w-full mb-8 mx-0 px-5 md:box-content md:max-w-[360px] md:mx-5 md:px-0">
+    <div className="box-border caret-transparent block max-w-full w-full mb-8 mx-0 px-5 md:box-content md:max-w-[calc(33.333%-40px)] md:mx-5 md:px-0">
       <div className="bg-white caret-transparent overflow-hidden rounded-[20px] shadow-sm transition-all duration-300 hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:-translate-y-2 h-full flex flex-col">
         <div className="caret-transparent p-[25px] flex-1 flex flex-col">
           <div className="flex items-center gap-2 mb-3">
@@ -93,16 +93,16 @@ const BlogCard = ({ title, date, excerpt, category, tags, readTime, views }: {
 
 const SearchBar = ({ searchTerm, setSearchTerm }: { searchTerm: string; setSearchTerm: (term: string) => void }) => {
   return (
-    <div className="relative mb-8">
+    <div className="relative flex-1 mb-4 md:mb-0 flex items-center">
       <input
         type="text"
         placeholder="Поиск статей..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full px-5 py-3 pr-12 rounded-[30px] border border-zinc-200 focus:outline-none focus:border-[#9f001f] font-montserrat"
+        className="w-full px-5 py-3 pr-12 rounded-[30px] border border-zinc-200 focus:outline-none focus:border-[#9f001f] font-montserrat h-[48px]"
       />
       <svg 
-        className="absolute right-5 top-1/2 -translate-y-1/2 text-zinc-400" 
+        className="absolute right-5 text-zinc-400 pointer-events-none" 
         width="20" 
         height="20" 
         viewBox="0 0 20 20" 
@@ -117,36 +117,87 @@ const SearchBar = ({ searchTerm, setSearchTerm }: { searchTerm: string; setSearc
   );
 };
 
-const CategoryFilter = ({ categories, selectedCategory, setSelectedCategory }: { 
+const CategoryFilter = ({ categories, selectedCategory, setSelectedCategory, tags, selectedTags, setSelectedTags }: { 
   categories: string[]; 
   selectedCategory: string; 
-  setSelectedCategory: (cat: string) => void 
+  setSelectedCategory: (cat: string) => void;
+  tags: string[];
+  selectedTags: string[];
+  setSelectedTags: (tags: string[]) => void;
 }) => {
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [isTagsOpen, setIsTagsOpen] = useState(false);
+
+  const toggleTag = (tag: string) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter(t => t !== tag));
+    } else {
+      setSelectedTags([...selectedTags, tag]);
+    }
+  };
+
   return (
-    <div className="flex flex-wrap gap-3 mb-8">
-      <button
-        onClick={() => setSelectedCategory("Все")}
-        className={`px-5 py-2 rounded-[30px] font-montserrat text-sm transition-all ${
-          selectedCategory === "Все" 
-            ? "bg-[#9f001f] text-white" 
-            : "bg-white text-zinc-600 hover:bg-zinc-100"
-        }`}
-      >
-        Все
-      </button>
-      {categories.map((cat) => (
+    <div className="flex flex-col md:flex-row gap-4 mb-8 md:items-center">
+      <div className="relative md:w-[250px]">
         <button
-          key={cat}
-          onClick={() => setSelectedCategory(cat)}
-          className={`px-5 py-2 rounded-[30px] font-montserrat text-sm transition-all ${
-            selectedCategory === cat 
-              ? "bg-[#9f001f] text-white" 
-              : "bg-white text-zinc-600 hover:bg-zinc-100"
-          }`}
+          onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+          className="w-full px-5 py-3 bg-white rounded-[30px] border border-zinc-200 font-montserrat text-sm text-left flex items-center justify-between"
         >
-          {cat}
+          <span>Категория: {selectedCategory}</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className={`transition-transform ${isCategoryOpen ? 'rotate-180' : ''}`}>
+            <path d="M4 6l4 4 4-4"/>
+          </svg>
         </button>
-      ))}
+        {isCategoryOpen && (
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-[20px] shadow-lg border border-zinc-200 z-10 max-h-[300px] overflow-y-auto">
+            <button
+              onClick={() => { setSelectedCategory("Все"); setIsCategoryOpen(false); }}
+              className="w-full px-5 py-3 text-left hover:bg-zinc-50 font-montserrat text-sm"
+            >
+              Все
+            </button>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => { setSelectedCategory(cat); setIsCategoryOpen(false); }}
+                className="w-full px-5 py-3 text-left hover:bg-zinc-50 font-montserrat text-sm"
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="relative md:w-[250px]">
+        <button
+          onClick={() => setIsTagsOpen(!isTagsOpen)}
+          className="w-full px-5 py-3 bg-white rounded-[30px] border border-zinc-200 font-montserrat text-sm text-left flex items-center justify-between"
+        >
+          <span>Теги: {selectedTags.length > 0 ? selectedTags.join(", ") : "Все"}</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className={`transition-transform ${isTagsOpen ? 'rotate-180' : ''}`}>
+            <path d="M4 6l4 4 4-4"/>
+          </svg>
+        </button>
+        {isTagsOpen && (
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-[20px] shadow-lg border border-zinc-200 z-10 max-h-[300px] overflow-y-auto">
+            {tags.map((tag) => (
+              <label
+                key={tag}
+                className="flex items-center px-5 py-3 hover:bg-zinc-50 cursor-pointer font-montserrat text-sm"
+              >
+                <input
+                  type="checkbox"
+                  checked={selectedTags.includes(tag)}
+                  onChange={() => toggleTag(tag)}
+                  className="mr-3"
+                />
+                {tag}
+              </label>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -244,10 +295,12 @@ const RandomArticle = ({ article }: { article: any }) => {
 export const BlogPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Все");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const articlesPerPage = 6;
+  const articlesPerPage = 12;
 
   const categories = ["Проектирование", "Производство", "Технологии", "Качество"];
+  const allTags = ["реакторы", "проектирование", "химия", "материалы", "производство", "биореакторы", "CIP", "SIP", "качество", "контроль", "стандарты", "автоматизация", "технологии", "энергоэффективность", "оптимизация", "безопасность", "сварка", "инновации"];
   
   const allArticles = [
     {
@@ -328,7 +381,8 @@ export const BlogPage = () => {
     const matchesSearch = article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          article.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "Все" || article.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const matchesTags = selectedTags.length === 0 || selectedTags.some(tag => article.tags.includes(tag));
+    return matchesSearch && matchesCategory && matchesTags;
   });
 
   const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
@@ -347,13 +401,18 @@ export const BlogPage = () => {
           <div className="max-w-[1920px] mx-auto">
             <div className="caret-transparent max-w-screen-sm w-full mx-auto px-5 md:max-w-[1200px]">
               
-              <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-              
-              <CategoryFilter 
+              <div className="flex flex-col md:flex-row gap-4 mb-8">
+                <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                
+                <CategoryFilter 
                 categories={categories} 
                 selectedCategory={selectedCategory} 
-                setSelectedCategory={setSelectedCategory} 
-              />
+                setSelectedCategory={setSelectedCategory}
+                tags={allTags}
+                  selectedTags={selectedTags}
+                  setSelectedTags={setSelectedTags}
+                />
+              </div>
               
               <div className="caret-transparent flex flex-wrap justify-center mb-12">
                 {displayedArticles.map((article, index) => (

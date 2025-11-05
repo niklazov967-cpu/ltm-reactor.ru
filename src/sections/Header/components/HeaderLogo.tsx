@@ -2,9 +2,9 @@ import React from "react";
 
 export const HeaderLogo = () => {
   return (
-    <div className="absolute box-border caret-transparent flex items-center w-[75px] z-[3] left-[15px] h-[70px] top-0 md:w-[110px] md:left-1/2 md:-translate-x-[564px] md:h-[100px]">
+    <div className="absolute box-border caret-transparent flex items-center w-[60px] z-[3] left-0 h-[70px] top-0 md:w-[70px] md:left-0 md:h-[100px] lg:w-[90px] lg:left-0 xl:w-[110px] xl:left-[40px]">
       <a
-        href="https://ltm-pump.ru/"
+        href="https://ltm-reactor.ru/"
         className="text-[#9f001f] caret-transparent table-cell align-middle w-full bg-center"
       >
         <img
