@@ -7,11 +7,8 @@ export const ContactFormSection = () => {
   return (
     <div className="caret-transparent w-full" id="rec1388869181">
       <div className="relative bg-black caret-transparent min-h-[1114px] text-center align-middle w-full overflow-hidden md:min-h-[1165px] max-w-[1920px] mx-auto">
-        <div 
-          className="absolute bg-[url('https://c.animaapp.com/mhl4okafNtEOeg/assets/IMG_20251003_104509_.jpg.webp')] bg-no-repeat bg-cover caret-transparent h-full align-middle w-full bg-center inset-0"
-          style={{ backgroundAttachment: 'fixed' }}
-        ></div>
-        <div className="absolute bg-[linear-gradient(to_bottom,rgba(159,0,31,0.9),rgba(159,0,31,0.9))] caret-transparent h-full w-full left-0 top-0 z-[1]"></div>
+        <div className="absolute bg-[url('https://c.animaapp.com/mhl4okafNtEOeg/assets/IMG_20251003_104509_.jpg.webp')] bg-no-repeat bg-cover caret-transparent h-full align-middle w-full bg-center inset-0" style={{ backgroundAttachment: 'fixed' }}></div>
+        <div className="absolute bg-[linear-gradient(to_bottom,rgba(159,0,31,0.9),rgba(159,0,31,0.9))] caret-transparent h-full w-full left-0 top-0"></div>
         <div className="caret-transparent relative z-10">
           <div className="caret-transparent max-w-screen-sm w-full mx-auto md:max-w-[1200px]">
             <div className="caret-transparent py-[60px] md:py-[90px]">
